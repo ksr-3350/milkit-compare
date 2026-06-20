@@ -368,13 +368,17 @@
   .install .t small{display:block;color:var(--sub);font-size:11px;margin-top:2px}
   /* 광고 영역 */
   .adwrap{margin:18px 0 0}
+  .adwrap:empty{margin:0}           /* 내용 없으면 여백 제거 */
   .adbox{position:relative;border:1px dashed #3a414f;border-radius:16px;background:#14171e;
     padding:18px;text-align:center;overflow:hidden}
-  .adbox .adlbl{position:absolute;top:8px;left:12px;font-size:10px;color:var(--sub);
-    letter-spacing:1px;font-weight:700}
+  /* AD 라벨: 실제 광고와 콘텐츠 카드 혼동 방지 — 대비 높임 */
+  .adbox .adlbl{position:absolute;top:6px;left:10px;font-size:10px;
+    color:#fff;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18);
+    border-radius:4px;padding:1px 6px;letter-spacing:.8px;font-weight:700;line-height:1.6}
   .adbox .adph{color:var(--sub);font-size:13px;padding:18px 0;line-height:1.6}
   .adbox .adph small{color:#6b7280;font-size:11px}
-  .adbox ins{display:block}
+  /* 반응형 ins — 광고 로드 전 높이 확보해 CLS 방지 */
+  .adbox ins{display:block;min-height:90px}
 
   footer{border-top:1px solid var(--line);margin-top:50px;padding:28px 0 50px;
     color:var(--sub);font-size:12px;text-align:center;line-height:1.7}
@@ -878,20 +882,22 @@ const ADSENSE = {
 };
 const adsReady = () => !!ADSENSE.client;
 
-/* 광고 박스 HTML (실제 슬롯ID가 있으면 애드센스 ins, 없으면 자리표시) */
+/* 광고 박스 HTML
+   - adsReady()+slotId 모두 충족 시에만 실제 ins 태그 반환
+   - 미설정이면 빈 문자열 반환(자리표시 박스 노출 안 함) */
 function adHTML(slotId, fmt){
   if(adsReady() && slotId){
-    return `<div class="adbox"><span class="adlbl">AD</span>`+
+    return `<div class="adbox" role="complementary" aria-label="광고">`+
+      `<span class="adlbl" aria-hidden="true">AD</span>`+
       `<ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE.client}" `+
       `data-ad-slot="${slotId}" data-ad-format="${fmt||'auto'}" data-full-width-responsive="true"></ins></div>`;
   }
-  return `<div class="adbox"><span class="adlbl">AD · 광고영역</span>`+
-    `<div class="adph">📢 광고가 표시될 자리예요<br/><small>애드센스 승인 후 자동으로 광고가 들어갑니다</small></div></div>`;
+  return ""; /* 미설정: 자리를 차지하지 않음 */
 }
-/* DOM에 들어간 애드센스 슬롯 활성화 */
+/* DOM에 이미 삽입된 미활성 슬롯을 애드센스에 등록 */
 function pushAds(){
   if(!adsReady()) return;
-  document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(()=>{
+  document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(function(ins){
     try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
   });
 }
@@ -1208,15 +1214,18 @@ function recommend(){
 document.getElementById("updateText").textContent = DATA_DATE;
 document.getElementById("updateBadge").textContent = `🔄 매주 자동 갱신 · 최근 ${DATA_DATE}`;
 
-/* 광고 초기화: 애드센스 로더 주입 + 상단 배너 */
+/* 광고 초기화: 애드센스 로더 주입 + 상단 배너
+   - adsReady() false 시 adTop은 비워 두어 .adwrap:empty CSS가 여백을 없앰
+   - script onload 후 상단 슬롯을 push해 "로더 미완료 상태의 push" 방지 */
 (function initAds(){
-  if(adsReady()){
-    const sc=document.createElement("script");
-    sc.async=true; sc.crossOrigin="anonymous";
-    sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE.client;
-    document.head.appendChild(sc);
-  }
-  document.getElementById("adTop").innerHTML = adHTML(ADSENSE.slotTop,"auto");
+  const adTopEl = document.getElementById("adTop");
+  if(!adsReady()){ adTopEl.innerHTML = ""; return; }
+  adTopEl.innerHTML = adHTML(ADSENSE.slotTop, "auto");
+  const sc = document.createElement("script");
+  sc.async = true; sc.crossOrigin = "anonymous";
+  sc.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADSENSE.client;
+  sc.onload = function(){ pushAds(); };
+  document.head.appendChild(sc);
 })();
 
 /* 신고/추가요청 토스트 */
