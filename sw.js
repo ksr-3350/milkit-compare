@@ -1,6 +1,6 @@
 /* 밀비교 서비스워커 — 오프라인 캐시 */
-const CACHE = "milbigyo-v1";
-const ASSETS = ["./", "./index.html", "./manifest.json", "./icon.svg"];
+const CACHE = "milbigyo-v2";
+const ASSETS = ["./", "./index.html", "./manifest.json", "./icon.svg", "./og-image.png"];
 
 self.addEventListener("install", e=>{
   e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()));
