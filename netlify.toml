@@ -1,0 +1,11 @@
+# 밀비교 — Netlify 배포 설정
+# 빌드 과정이 없는 정적 사이트라, 저장소 루트를 그대로 배포합니다.
+[build]
+  publish = "."
+  command = ""
+
+# 잘못된 경로 접근 시 첫 화면으로
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
