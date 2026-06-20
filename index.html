@@ -397,6 +397,149 @@
     .quiz{padding:30px}
     .thumb{width:96px;height:96px}
   }
+
+  /* ===== VS 직접 맞대결 섹션 ===== */
+  .vs-section{
+    margin:20px 0 4px;
+    background:linear-gradient(135deg,#151b26,#181b22);
+    border:1px solid var(--line);border-radius:18px;
+    overflow:hidden;
+  }
+  .vs-header{
+    display:flex;align-items:center;gap:10px;
+    padding:14px 18px;cursor:pointer;user-select:none;
+    border-bottom:1px solid transparent;transition:border-color .15s;
+  }
+  .vs-section.open .vs-header{border-bottom-color:var(--line)}
+  .vs-header .vs-title{
+    font-size:15px;font-weight:800;flex:1;
+  }
+  .vs-header .vs-sub{font-size:12px;color:var(--sub);margin-left:4px;font-weight:400}
+  .vs-toggle{
+    font-size:12px;color:var(--sub);padding:4px 10px;
+    background:var(--card2);border:1px solid var(--line);border-radius:999px;
+    transition:.15s;white-space:nowrap;
+  }
+  .vs-header:hover .vs-toggle{border-color:var(--accent);color:var(--txt)}
+  .vs-body{display:none;padding:16px 18px 18px}
+  .vs-section.open .vs-body{display:block;animation:pop .22s ease}
+  /* 셀렉터 행 */
+  .vs-picks{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;
+  }
+  .vs-picks select{
+    flex:1;min-width:160px;
+    background:var(--card2);border:1.5px solid var(--line);
+    border-radius:12px;color:var(--txt);font-size:14px;font-weight:600;
+    padding:10px 14px;outline:none;cursor:pointer;transition:border-color .15s;
+    appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239aa3b2' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;
+    padding-right:36px;
+  }
+  .vs-picks select:focus{border-color:var(--accent)}
+  .vs-badge{
+    font-size:18px;font-weight:900;color:var(--accent);
+    flex:none;padding:0 4px;line-height:1;
+  }
+  /* 맞대결 카드 영역 */
+  .vs-arena{
+    display:flex;gap:12px;align-items:stretch;flex-wrap:wrap;
+  }
+  .vs-card{
+    flex:1;min-width:200px;
+    background:var(--card);border:1.5px solid var(--line);
+    border-radius:14px;padding:16px;
+    display:flex;flex-direction:column;gap:10px;
+    position:relative;transition:border-color .2s;
+  }
+  .vs-card.vs-winner{border-color:var(--accent2);background:rgba(255,179,71,.04)}
+  .vs-card .vs-brand{
+    font-size:17px;font-weight:900;
+    display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  }
+  .vs-card .vs-crown{
+    font-size:14px;display:none;
+  }
+  .vs-card.vs-winner .vs-crown{display:inline}
+  .vs-card .vs-won{
+    font-size:20px;font-weight:900;color:var(--green);
+  }
+  .vs-card .vs-won small{font-size:12px;color:var(--sub);font-weight:500}
+  .vs-card .vs-rep{font-size:12px;color:var(--sub);margin-top:-6px}
+  /* 각 축 비교 행 */
+  .vs-axis{
+    display:flex;flex-direction:column;gap:7px;
+  }
+  .vs-row{
+    background:var(--card2);border-radius:9px;
+    padding:8px 11px;border:1px solid transparent;transition:border-color .15s;
+  }
+  .vs-row.vs-win{border-color:rgba(255,179,71,.35);background:rgba(255,179,71,.06)}
+  .vs-row .vr-top{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:11.5px;color:var(--sub);margin-bottom:5px;
+  }
+  .vs-row .vr-lbl{font-size:11px;letter-spacing:-.01em}
+  .vs-row .vr-val{
+    font-size:13px;font-weight:800;color:var(--txt);
+    display:flex;align-items:center;gap:4px;
+  }
+  .vs-row.vs-win .vr-val{color:var(--accent2)}
+  .vs-row .vr-check{font-size:11px;display:none}
+  .vs-row.vs-win .vr-check{display:inline}
+  /* 바: 기존 .bar 스타일 재사용 */
+  .vs-row .bar{margin-top:0}
+  /* 종합 가성비 */
+  .vs-total{
+    text-align:center;padding:10px;
+    background:#12151b;border-radius:10px;border:1px solid var(--line);
+  }
+  .vs-total .vt-lbl{font-size:11px;color:var(--sub);margin-bottom:3px}
+  .vs-total .vt-num{font-size:22px;font-weight:900;color:var(--accent2);line-height:1}
+  .vs-card.vs-winner .vs-total{border-color:var(--accent2)}
+  .vs-card.vs-winner .vs-total .vt-num{color:var(--accent)}
+  /* 카테고리 / 대표메뉴 메타 */
+  .vs-meta{font-size:12px;color:var(--sub)}
+  .vs-meta b{color:var(--txt)}
+  /* VS 중앙 구분선 */
+  .vs-divider{
+    display:flex;align-items:center;justify-content:center;
+    flex:none;width:36px;
+  }
+  .vs-divider span{
+    font-size:16px;font-weight:900;color:var(--accent);
+    background:var(--card2);border:1px solid var(--line);
+    border-radius:999px;width:36px;height:36px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* 미선택 안내 */
+  .vs-empty{
+    text-align:center;color:var(--sub);font-size:13px;
+    padding:20px 0 8px;
+  }
+  /* 사이트 링크 버튼 */
+  .vs-link{
+    font-size:12px;padding:7px 12px;border-radius:9px;
+    border:1px solid var(--line);background:var(--card2);
+    color:var(--sub);cursor:pointer;text-decoration:none;
+    display:inline-block;transition:.15s;margin-top:2px;
+    text-align:center;
+  }
+  .vs-link:hover{border-color:var(--accent);color:var(--accent)}
+  /* 동점 배너 */
+  .vs-tie{
+    text-align:center;font-size:12px;color:var(--sub);
+    background:var(--card2);border:1px solid var(--line);
+    border-radius:10px;padding:8px 14px;margin-top:2px;
+  }
+  /* 반응형: 400px 이하에서 divider 숨기고 완전 1열 */
+  @media(max-width:520px){
+    .vs-divider{display:none}
+    .vs-card{min-width:0;width:100%}
+    .vs-arena{flex-direction:column}
+    .vs-picks select{min-width:0}
+  }
 </style>
 </head>
 <body>
@@ -517,6 +660,22 @@
     </div>
     <div class="spacer"></div>
     <div class="chip favchip" id="favChip">❤️ 찜만 보기</div>
+  </div>
+
+  <!-- 두 곳 직접 맞대결 VS 섹션 -->
+  <div class="vs-section" id="vsSection">
+    <div class="vs-header" id="vsHeader">
+      <span class="vs-title">⚔️ 두 곳 직접 맞대결<span class="vs-sub">브랜드 2개를 골라 1:1 비교</span></span>
+      <span class="vs-toggle" id="vsToggleBtn">접기 ▲</span>
+    </div>
+    <div class="vs-body" id="vsBody">
+      <div class="vs-picks">
+        <select id="vsSelectA" aria-label="브랜드 A 선택"></select>
+        <div class="vs-badge">VS</div>
+        <select id="vsSelectB" aria-label="브랜드 B 선택"></select>
+      </div>
+      <div id="vsResult"></div>
+    </div>
   </div>
 
   <!-- 메뉴별 한 끼 최저가 비교 (검색 시 노출) -->
@@ -1096,6 +1255,185 @@ function render(){
   grid.innerHTML = out.join("");
   pushAds();
 }
+
+/* ===== 두 곳 직접 맞대결 (VS) ===== */
+(function(){
+  /* 셀렉트 옵션 채우기 */
+  function buildOptions(sel, skipName){
+    sel.innerHTML = "";
+    SITES.forEach(function(s){
+      const opt = document.createElement("option");
+      opt.value = s.name;
+      opt.textContent = s.name.split(" (")[0];
+      if(s.name === skipName) opt.disabled = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  const selA = document.getElementById("vsSelectA");
+  const selB = document.getElementById("vsSelectB");
+  const resultBox = document.getElementById("vsResult");
+  const vsSection = document.getElementById("vsSection");
+  const vsHeader  = document.getElementById("vsHeader");
+  const vsToggleBtn = document.getElementById("vsToggleBtn");
+
+  /* 기본값: 비비고 vs 프레시지 */
+  const DEFAULT_A = "비비고 (CJ제일제당)";
+  const DEFAULT_B = "프레시지 (Fresheasy)";
+
+  buildOptions(selA, "");
+  buildOptions(selB, "");
+  selA.value = DEFAULT_A;
+  selB.value = DEFAULT_B;
+
+  /* 토글 열기/접기 */
+  vsSection.classList.add("open");
+  vsHeader.addEventListener("click", function(){
+    const open = vsSection.classList.toggle("open");
+    vsToggleBtn.textContent = open ? "접기 ▲" : "펼치기 ▼";
+  });
+
+  /* 같은 브랜드 선택 방지: A가 바뀌면 B 옵션 재구성, 반대도 동일 */
+  selA.addEventListener("change", function(){
+    const prev = selB.value;
+    buildOptions(selB, selA.value);
+    selB.value = (prev && prev !== selA.value) ? prev : DEFAULT_B;
+    if(!selB.value || selB.value === selA.value){
+      /* 혹시 동일해지면 다른 첫 번째 항목으로 */
+      const fallback = SITES.find(s => s.name !== selA.value);
+      if(fallback) selB.value = fallback.name;
+    }
+    renderVS();
+  });
+  selB.addEventListener("change", function(){
+    const prev = selA.value;
+    buildOptions(selA, selB.value);
+    selA.value = (prev && prev !== selB.value) ? prev : DEFAULT_A;
+    if(!selA.value || selA.value === selB.value){
+      const fallback = SITES.find(s => s.name !== selB.value);
+      if(fallback) selA.value = fallback.name;
+    }
+    renderVS();
+  });
+
+  /* VS 카드 한 장 */
+  function vsCard(s, axes){
+    /* axes: [{lbl, barClass, valA, valB, isA}] — A카드 시점에서 isA=true */
+    const isA = axes[0].isA; /* 첫 번째 축의 isA로 현재 카드 방향 판별 */
+    const myVal  = function(ax){ return isA ? ax.valA : ax.valB; };
+    const oppVal = function(ax){ return isA ? ax.valB : ax.valA; };
+
+    /* 종합 승/패: 가성비 종합 점수 기준 */
+    const myVS  = valueScore(s);
+    const opp   = SITES.find(function(x){ return x.name === (isA ? selB.value : selA.value); });
+    const oppVS = opp ? valueScore(opp) : myVS;
+    const isWinner = myVS > oppVS + 0.001; /* 오차 0.001 이하는 동점 처리 */
+
+    const axesHTML = axes.map(function(ax){
+      const mv = myVal(ax);
+      const ov = oppVal(ax);
+      const win = (mv != null && ov != null && mv > ov + 0.001);
+      const tie = (mv != null && ov != null && Math.abs(mv - ov) <= 0.001);
+      const valStr = mv != null ? fmt(mv) : "—";
+      const pctStr = mv != null ? pct(mv) : "0%";
+      return [
+        `<div class="vs-row${win?" vs-win":""}" title="${ax.lbl}${tie?" (동점)":win?" (이김)":""}">`,
+          `<div class="vr-top">`,
+            `<span class="vr-lbl">${ax.lbl}</span>`,
+            `<span class="vr-val">${valStr}<span class="vr-check">✓</span></span>`,
+          `</div>`,
+          `<div class="bar ${ax.barClass}"><i style="width:${pctStr}"></i></div>`,
+        `</div>`
+      ].join("");
+    }).join("");
+
+    /* 재구매 */
+    const rebuyVal = s.rebuy != null ? fmt(s.rebuy) : "정보없음";
+    const rebuyPct = s.rebuy != null ? pct(s.rebuy) : "0%";
+    const oppRebuy = opp ? (opp.rebuy != null ? opp.rebuy : null) : null;
+    const rebuyWin = (s.rebuy != null && oppRebuy != null && s.rebuy > oppRebuy + 0.001);
+    const rebuyTie = (s.rebuy != null && oppRebuy != null && Math.abs(s.rebuy - oppRebuy) <= 0.001);
+
+    const rebuyHTML = [
+      `<div class="vs-row${rebuyWin?" vs-win":""}" title="🔁 재구매${rebuyTie?" (동점)":rebuyWin?" (이김)":""}">`,
+        `<div class="vr-top">`,
+          `<span class="vr-lbl">🔁 재구매</span>`,
+          `<span class="vr-val" style="color:${s.rebuy!=null?'':'var(--sub)'}">${rebuyVal}<span class="vr-check">✓</span></span>`,
+        `</div>`,
+        `<div class="bar rebuy"><i style="width:${rebuyPct}"></i></div>`,
+      `</div>`
+    ].join("");
+
+    const cats = (s.cats||[]).map(function(c){ return (CAT_EMOJI[c]||"")+" "+c; }).join(" · ") || "—";
+
+    return [
+      `<div class="vs-card${isWinner?" vs-winner":""}">`,
+        `<div class="vs-brand">`,
+          `<span class="vs-crown">🏆</span>`,
+          s.name.split(" (")[0],
+        `</div>`,
+        `<div>`,
+          `<div class="vs-won">${won(s.won)}원<small> / ${s.unit||"1인분 환산"}</small></div>`,
+          `<div class="vs-rep">대표: ${s.repMenu} · ${s.repPrice}</div>`,
+        `</div>`,
+        `<div class="vs-axis">`,
+          axesHTML,
+          rebuyHTML,
+        `</div>`,
+        `<div class="vs-total">`,
+          `<div class="vt-lbl">⚖️ 가성비 종합</div>`,
+          `<div class="vt-num">${fmt(myVS)}</div>`,
+        `</div>`,
+        `<div class="vs-meta">🍽️ 메뉴: <b>${cats}</b></div>`,
+        `<a class="vs-link" href="${s.url}" target="_blank" rel="noopener">🔎 ${s.name.split(" (")[0]} 가격·후기 보기</a>`,
+      `</div>`
+    ].join("");
+  }
+
+  function renderVS(){
+    const nameA = selA.value;
+    const nameB = selB.value;
+    if(!nameA || !nameB || nameA === nameB){
+      resultBox.innerHTML = `<div class="vs-empty">브랜드 두 곳을 선택하면 1:1 비교 결과가 나와요.</div>`;
+      return;
+    }
+    const sA = SITES.find(function(s){ return s.name === nameA; });
+    const sB = SITES.find(function(s){ return s.name === nameB; });
+    if(!sA || !sB){
+      resultBox.innerHTML = `<div class="vs-empty">선택한 브랜드를 찾을 수 없어요.</div>`;
+      return;
+    }
+
+    /* 3축 공통 정의 */
+    const axes = [
+      {lbl:"💰 가격",     barClass:"price",  valA:sA.price,       valB:sB.price},
+      {lbl:"😋 맛",       barClass:"taste",  valA:sA.taste,       valB:sB.taste},
+      {lbl:"📝 후기신뢰", barClass:"review", valA:sA.reviewScore, valB:sB.reviewScore}
+    ];
+    const axesA = axes.map(function(ax){ return Object.assign({isA:true},  ax); });
+    const axesB = axes.map(function(ax){ return Object.assign({isA:false}, ax); });
+
+    /* 종합 동점 여부 */
+    const vsA = valueScore(sA);
+    const vsB = valueScore(sB);
+    const tie = Math.abs(vsA - vsB) <= 0.001;
+    const tieHTML = tie
+      ? `<div class="vs-tie">⚖️ 가성비 종합 동점이에요! 재구매·맛 등 세부 항목으로 결정하세요.</div>`
+      : "";
+
+    resultBox.innerHTML = [
+      `<div class="vs-arena">`,
+        vsCard(sA, axesA),
+        `<div class="vs-divider"><span>VS</span></div>`,
+        vsCard(sB, axesB),
+      `</div>`,
+      tieHTML
+    ].join("");
+  }
+
+  /* 초기 렌더 */
+  renderVS();
+})();
 
 /* 검색 */
 const input = document.getElementById("searchInput");
