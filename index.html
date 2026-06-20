@@ -137,19 +137,63 @@
   .search-status{margin-top:14px;font-size:13px;color:var(--accent2);display:none}
   .search-status a{color:var(--blue);text-decoration:underline}
   /* 메뉴별 한 끼 최저가 헤드투헤드 (밀비교 차별 기능) */
-  .compare{display:none;margin:16px 0 4px;background:linear-gradient(135deg,#231a10,#181b22);
-    border:1px solid var(--accent);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}
-  .compare.show{display:block}
-  .cmp-h{font-size:15px;font-weight:800}
-  .cmp-h small{display:block;font-weight:500;color:var(--sub);font-size:12px;margin-top:4px}
-  .cmp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
-  .cmp-item{background:var(--card2);border:1px solid var(--line);border-radius:12px;
-    padding:11px 13px;display:flex;flex-direction:column;gap:3px;text-decoration:none;color:var(--txt)}
-  .cmp-item:hover{border-color:var(--accent)}
-  .cmp-lbl{font-size:11px;color:var(--sub)}
-  .cmp-item b{font-size:14px}
-  .cmp-v{font-size:13px;color:var(--accent2);font-weight:700}
-  @media(max-width:560px){.cmp-row{grid-template-columns:1fr}}
+  .compare{
+    display:none;margin:16px 0 4px;
+    background:linear-gradient(135deg,#1e1710,#181b22);
+    border:1px solid rgba(255,107,53,.45);border-radius:16px;
+    padding:16px 18px;box-shadow:var(--shadow),0 0 0 1px rgba(255,107,53,.06) inset;
+  }
+  .compare.show{display:block;animation:pop .25s ease}
+  .cmp-h{font-size:15px;font-weight:800;line-height:1.3}
+  .cmp-h small{
+    display:block;font-weight:500;color:var(--sub);font-size:11.5px;margin-top:3px;
+    letter-spacing:.01em;
+  }
+  .cmp-row{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}
+  .cmp-item{
+    background:var(--card2);border:1px solid var(--line);border-radius:12px;
+    padding:12px 13px;display:flex;flex-direction:column;gap:2px;
+    text-decoration:none;color:var(--txt);transition:border-color .15s,background .15s;
+    position:relative;overflow:hidden;
+  }
+  /* 왼쪽 컬러 악센트 바 */
+  .cmp-item::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;
+    background:var(--line);transition:background .15s;
+  }
+  .cmp-item:hover{border-color:var(--accent);background:rgba(255,107,53,.04)}
+  .cmp-item:hover::before{background:var(--accent)}
+  /* 각 셀별 악센트 색 */
+  .cmp-item.cmp-price::before{background:var(--green)}
+  .cmp-item.cmp-taste::before{background:var(--yellow)}
+  .cmp-item.cmp-value::before{background:var(--accent2)}
+  .cmp-item.cmp-rebuy::before{background:#e84393}
+  .cmp-item.cmp-price:hover{border-color:var(--green)}
+  .cmp-item.cmp-taste:hover{border-color:var(--yellow)}
+  .cmp-item.cmp-value:hover{border-color:var(--accent2)}
+  .cmp-item.cmp-rebuy:hover{border-color:#e84393}
+  .cmp-lbl{font-size:10.5px;color:var(--sub);letter-spacing:.01em}
+  .cmp-item b{font-size:13px;font-weight:700;line-height:1.3;margin-top:1px}
+  .cmp-v{font-size:13px;color:var(--accent2);font-weight:800;margin-top:2px}
+  .cmp-item.cmp-price .cmp-v{color:var(--green)}
+  .cmp-item.cmp-taste .cmp-v{color:var(--yellow)}
+  .cmp-item.cmp-rebuy .cmp-v{color:#e84393}
+  .cmp-note{
+    margin-top:10px;font-size:11.5px;color:var(--sub);line-height:1.55;
+    padding:8px 10px;background:rgba(255,255,255,.03);border-radius:8px;
+  }
+  /* 태블릿: 2x2 */
+  @media(max-width:680px){
+    .cmp-row{grid-template-columns:repeat(2,1fr);gap:8px}
+    .compare{padding:14px 14px}
+  }
+  /* 소형 폰: 1컬럼 */
+  @media(max-width:360px){
+    .cmp-row{grid-template-columns:1fr}
+    .cmp-item{flex-direction:row;align-items:center;gap:8px;padding:10px 12px}
+    .cmp-item b{flex:1}
+    .cmp-v{margin-top:0;min-width:52px;text-align:right}
+  }
   /* CS 연동: 오류/품절 신고·사이트 추가요청 */
   .reportlink{display:inline-block;margin-top:10px;font-size:12px;color:var(--sub);text-decoration:none}
   .reportlink:hover{color:var(--accent2);text-decoration:underline}
@@ -199,10 +243,14 @@
   .slider .qbtn:hover{border-color:var(--accent);color:var(--txt)}
 
   /* CARDS */
-  .grid{display:grid;grid-template-columns:1fr;gap:14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;
-    padding:20px;display:grid;grid-template-columns:1fr;gap:14px;transition:.18s}
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:20px;display:grid;grid-template-columns:1fr;gap:12px;transition:.18s;
+  }
   .card:hover{border-color:#3a414f;transform:translateY(-2px)}
+  /* 점수바 영역은 카드 내 다른 섹션보다 위아래 여백을 살짝 줄여 밀집되어 보이지 않게 */
+  .card .scores{margin:-2px 0}
   .card .top{display:flex;align-items:flex-start;gap:14px}
   .thumbwrap{position:relative;flex:none}
   .thumb{width:84px;height:84px;border-radius:14px;object-fit:cover;display:block;
@@ -229,15 +277,45 @@
   .priceline .won small{font-size:12px;color:var(--sub);font-weight:600}
   .priceline .rep{font-size:12px;color:var(--sub)}
 
-  .scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .score{background:var(--card2);border-radius:10px;padding:10px 12px}
-  .score .s-top{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin-bottom:6px}
-  .score .s-val{font-weight:800;color:var(--txt)}
-  .bar{height:6px;background:#0f1115;border-radius:99px;overflow:hidden}
-  .bar i{display:block;height:100%;border-radius:99px}
+  /* 점수 바 4개 영역 */
+  .scores{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .score{
+    background:var(--card2);border-radius:10px;padding:9px 11px;
+    border:1px solid transparent; /* hover 시 테두리 자리 확보 */
+    transition:border-color .15s;
+  }
+  .score:hover{border-color:var(--line)}
+  .score .s-top{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-size:11px;color:var(--sub);margin-bottom:5px;gap:4px;
+  }
+  .score .s-lbl{
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    min-width:0;flex:1;
+  }
+  .score .s-val{font-size:13px;font-weight:800;color:var(--txt);flex:none}
+  .score .s-val.na{color:var(--sub);font-weight:500;font-size:11px}
+  /* 바 높이·색상 */
+  .bar{height:5px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;transition:width .35s ease}
+  /* 가격: 민트→파랑 */
   .bar.price i{background:linear-gradient(90deg,#37d399,#54a0ff)}
-  .bar.taste i{background:linear-gradient(90deg,#ffd166,#ff6b35)}
+  /* 맛: 노랑→살구 (accent2까지만, accent는 rebuy 전용으로 분리) */
+  .bar.taste i{background:linear-gradient(90deg,#ffd166,#ffb347)}
+  /* 후기신뢰: 파랑→보라 */
   .bar.review i{background:linear-gradient(90deg,#54a0ff,#a55eea)}
+  /* 재구매: 산호→빨강 — 맛 바와 끝색이 겹치지 않도록 역방향 팔레트 */
+  .bar.rebuy i{background:linear-gradient(90deg,#e84393,#ff6b6b)}
+  /* 재구매 셀 미세 강조 (4번째 신규 축임을 살짝 구분) */
+  .score.score-rebuy{background:rgba(232,67,147,.06);border-color:rgba(232,67,147,.12)}
+  .score.score-rebuy:hover{border-color:rgba(232,67,147,.28)}
+  /* 모바일: 2x2 그리드 */
+  @media(max-width:560px){
+    .scores{grid-template-columns:repeat(2,1fr);gap:7px}
+    .score{padding:8px 10px}
+    .score .s-top{font-size:10.5px}
+    .score .s-val{font-size:12px}
+  }
 
   .meta{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--sub);
     border-top:1px solid var(--line);padding-top:12px}
@@ -249,7 +327,6 @@
     border-left:3px solid var(--accent2);border-radius:0 10px 10px 0;
     padding:8px 12px;font-size:12px;color:var(--sub);line-height:1.5}
   .note b{color:var(--accent2);font-weight:700;white-space:nowrap}
-  .cmp-note{margin-top:10px;font-size:12px;color:var(--sub);line-height:1.5}
   .links{display:flex;gap:8px;flex-wrap:wrap}
   .btn{font-size:13px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);
     background:var(--card2);cursor:pointer;font-weight:600;transition:.15s;display:inline-block}
@@ -291,7 +368,9 @@
 
   @media(min-width:760px){
     h1{font-size:44px}
-    .card{padding:24px}
+    .card{padding:24px;gap:14px}
+    .card .scores{margin:-1px 0}
+    .scores{gap:10px}
     .quiz{padding:30px}
     .thumb{width:96px;height:96px}
   }
@@ -431,6 +510,7 @@
     <b>ℹ️ 점수·가격은 어떻게 매겼나요?</b><br/>
     점수는 네이버 블로그·카페·쇼핑 등 공개된 실제 사용자 후기를 종합한 <b>추정 지표</b>이고,
     가격은 검색 시점의 <b>대표 상품 실제 판매가</b> 기준입니다. 썸네일·공식몰 링크는 각 브랜드의 공개 정보를 기반으로 합니다.
+    <b>🔁 재구매 점수</b>는 공개 후기 내 재구매 언급 빈도·구매 채널 접근성·구독 구조 등을 종합한 <b>추정 지표</b>로, 브랜드가 공식 발표한 재구매율 수치가 아닙니다.
     가격·맛은 메뉴와 시기, 진행 중인 할인에 따라 달라질 수 있으니 실제 구매 전 각 사이트의 최신 가격과 리뷰를 꼭 확인하세요.
     데이터는 <b id="updateText"></b> 기준이며, 자동 갱신 작업으로 주기적으로 새로고침됩니다.
     본 사이트는 특정 업체와 제휴 관계가 없습니다.
@@ -457,6 +537,7 @@ const SITES = [
     name:"맛꾼 (맛꾼푸드/맛꾼밥상)",
     desc:"인스타에서 가장 많이 보이는 그 곳. 감자탕·국밥·곱창전골·소갈비탕 등 푸짐한 양으로 호평.",
     price:3.9, taste:4.6, reviewScore:4.4, reviewCount:"6만팩+ 판매(소갈비탕 등)",
+    rebuy:4.5, rebuySrc:"네이버 후기 내 '또 시킬게요' 언급 다수, 6만팩 누적 판매 지표",
     repMenu:"감자탕 1kg (2인)", repPrice:"약 13,900원", won:6950,
     cats:["국물/탕","고기","전골/나베"],
     menus:["감자탕","뼈해장국","경자국밥","돼지국밥","소갈비탕","갈비탕","소곱창전골","곱창","양념갈비","한돈"],
@@ -469,6 +550,7 @@ const SITES = [
     name:"장사의신 (장신몰)",
     desc:"자영업자용 대용량 식자재까지 저렴하게. 건더기 700~800g, 곱창에 곱도 꽉 찬 가성비.",
     price:4.7, taste:4.1, reviewScore:4.0, reviewCount:"2주 직접 시식 후기 다수",
+    rebuy:3.8, rebuySrc:"시식 후기 내 재구매 의향 언급 있으나 대용량 특성상 구매 빈도는 낮은 편",
     repMenu:"초벌 소곱창 160g", repPrice:"3,900원~ (5팩 28,480원)", won:5700,
     cats:["국물/탕","전골/나베","대용량"],
     menus:["곱창","막창","대창","염통","소곱창","순두부","돈가스","대용량 식자재","펜네"],
@@ -482,6 +564,7 @@ const SITES = [
     name:"프레시지 (Fresheasy)",
     desc:"국내 밀키트 시장 1위. 종류가 압도적으로 많고 배송·품질이 안정적인 무난한 선택.",
     price:3.4, taste:4.2, reviewScore:4.7, reviewCount:"리뷰 수 업계 최다급",
+    rebuy:4.3, rebuySrc:"업계 최다 리뷰 규모·정기구독 서비스 존재, '계속 시키는 집밥 루틴' 언급 다수",
     repMenu:"밀푀유나베 2인 850g", repPrice:"약 21,890원 (어묵탕 9,900원)", won:10940,
     cats:["국물/탕","전골/나베","고기"],
     menus:["밀푀유나베","마라탕","어묵탕","우동전골","김치어묵","캠핑포차","부대찌개","감바스"],
@@ -495,6 +578,7 @@ const SITES = [
     name:"마이셰프 (MyChef)",
     desc:"국내 최초 밀키트. DIY 조리형으로 갓 만든 느낌. 밀푀유나베·마라탕이 만원대로 가성비 굿.",
     price:4.1, taste:4.5, reviewScore:4.3, reviewCount:"밀푀유나베 후기 다수",
+    rebuy:4.2, rebuySrc:"'또 주문했어요' 후기 다수, DIY 조리감 만족도로 재구매 이어지는 패턴",
     repMenu:"소고기 밀푀유나베 2인", repPrice:"약 17,900원", won:8950,
     cats:["전골/나베","국물/탕"],
     menus:["밀푀유나베","마라탕","소고기미역국","칼국수","나베"],
@@ -508,6 +592,7 @@ const SITES = [
     name:"테이스티나인 (탐나는밥상)",
     desc:"리뷰 수만 개의 스테디셀러. 손질이 다 돼 있어 편리한 밀푀유나베·한식 위주.",
     price:3.6, taste:4.0, reviewScore:4.5, reviewCount:"밀푀유나베 리뷰 8천+",
+    rebuy:4.1, rebuySrc:"리뷰 8천+ 스테디셀러 유지, '스테디셀러라는 말이 맞다' 재구매 언급 다수",
     repMenu:"탐나는밥상 밀푀유나베", repPrice:"약 14,250원", won:7100,
     cats:["전골/나베","국물/탕"],
     menus:["밀푀유나베","나베","한식","찌개","탐나는밥상"],
@@ -521,6 +606,7 @@ const SITES = [
     name:"즐먹24 (대박이닭)",
     desc:"춘천닭갈비 특화 스마트스토어. 오리지널/간장 골라먹기, 쿠폰·무료배송 자주 진행.",
     price:4.3, taste:4.2, reviewScore:4.1, reviewCount:"닭갈비 후기 500+",
+    rebuy:3.9, rebuySrc:"후기 500+ 규모, 쿠폰·무료배송 반복 구매 유도 구조, 재구매 언급 있으나 규모 한정적",
     repMenu:"춘천닭갈비 2팩(4인)", repPrice:"약 11,000원 (무료배송)", won:5500,
     cats:["고기"],
     menus:["춘천닭갈비","닭갈비","대박이닭","간장닭갈비","볶음"],
@@ -533,6 +619,7 @@ const SITES = [
     name:"해로식탁",
     desc:"24시간 숙성 특제양념 제육·불고기 중심. 캠핑 밀키트로 인기, 공동구매 할인 자주.",
     price:4.2, taste:4.4, reviewScore:3.9, reviewCount:"제육 공동구매 후기 다수",
+    rebuy:4.0, rebuySrc:"공동구매 반복 참여 패턴, '다음 공구 때도 살 것' 언급 다수",
     repMenu:"제육불고기 500g", repPrice:"약 9,400원 (5팩 46,900원)", won:4700,
     cats:["고기"],
     menus:["제육불고기","제육볶음","불고기","제육덮밥","돼지주물럭","캠핑"],
@@ -545,6 +632,7 @@ const SITES = [
     name:"이마트 고래잇",
     desc:"대형마트의 가성비 끝판왕. 매달 식단·할인 행사로 묶음 구매 시 가격 경쟁력 최고.",
     price:4.8, taste:3.7, reviewScore:4.2, reviewCount:"월별 식단 후기 다수",
+    rebuy:4.0, rebuySrc:"월별 식단 구성 특성상 구독형 반복 구매 유도, '매달 주문' 패턴 후기 다수",
     repMenu:"월별 식단 묶음", repPrice:"할인가 다양 (1인 ~4,500원)", won:4500,
     cats:["국물/탕","고기","전골/나베","대용량"],
     menus:["감자탕","부대찌개","전골","닭갈비","월식단","캠핑"],
@@ -559,6 +647,7 @@ const SITES = [
     name:"곰곰 (쿠팡 PB)",
     desc:"로켓배송 가성비 최강 PB. 밀푀유나베 등에서 유명 브랜드를 누른다는 후기 다수.",
     price:4.6, taste:4.0, reviewScore:4.4, reviewCount:"밀푀유나베 비교 후기 다수",
+    rebuy:4.2, rebuySrc:"로켓배송 편의성·가격으로 반복 구매 쉬운 구조, '쿠팡 장볼 때 같이 담는다' 언급",
     repMenu:"곰곰 밀푀유나베 2인", repPrice:"약 13,900원 (로켓배송)", won:6950,
     cats:["전골/나베","국물/탕","대용량"],
     menus:["밀푀유나베","나베","마라탕","찌개","로켓배송"],
@@ -572,6 +661,7 @@ const SITES = [
     name:"쿠킷 (GS프레시몰)",
     desc:"셰프 레시피 기반 프리미엄 밀키트. 가격은 높은 편이지만 맛·구성 완성도가 강점.",
     price:3.0, taste:4.5, reviewScore:4.0, reviewCount:"프리미엄 메뉴 후기",
+    rebuy:3.7, rebuySrc:"가격 부담으로 일상 재구매 빈도 낮음, '특별한 날 다시 주문' 패턴",
     repMenu:"셰프 레시피 메뉴 2인", repPrice:"약 22,000원~", won:11000,
     cats:["전골/나베","국물/탕","고기"],
     menus:["셰프","감바스","스테이크","파스타","나베","찌개"],
@@ -585,6 +675,7 @@ const SITES = [
     name:"피코크 (이마트 PB)",
     desc:"이마트 프리미엄 PB. 부대찌개·짬뽕 등 대용량을 1만원 안팎으로 즐기는 가성비 강자.",
     price:4.4, taste:4.0, reviewScore:4.3, reviewCount:"부대찌개·면류 후기 다수",
+    rebuy:4.1, rebuySrc:"마트 장보기 시 자연스러운 반복 구매, '이마트 갈 때마다 집어온다' 언급",
     repMenu:"송탄식 부대찌개 1.4kg", repPrice:"9,980원 (2~3인)", won:3500,
     cats:["국물/탕","전골/나베","대용량"],
     menus:["부대찌개","초마짬뽕","짬뽕","초계국수","찌개","국수"],
@@ -598,6 +689,7 @@ const SITES = [
     name:"노브랜드 (이마트)",
     desc:"초저가 끝판왕. 맛은 평범하지만 '일단 싸게' 채울 땐 비교 불가의 가격.",
     price:4.9, taste:3.4, reviewScore:3.8, reviewCount:"가성비 후기 다수",
+    rebuy:3.8, rebuySrc:"저가로 비상식량·쟁여두기 반복 구매, 맛 기대치 낮아 실망 재구매 이탈도 존재",
     repMenu:"진한 부대찌개 500g", repPrice:"약 11,000원 (2개입)", won:3000,
     cats:["국물/탕","대용량"],
     menus:["부대찌개","찌개","탕","국","간편식","가성비"],
@@ -612,6 +704,7 @@ const SITES = [
     name:"마켓컬리 (Kurly)",
     desc:"새벽배송 프리미엄. 가격은 비싼 편이지만 신선도·구성·맛 완성도가 높다는 평.",
     price:2.8, taste:4.4, reviewScore:4.4, reviewCount:"프리미엄 밀키트 후기 다수",
+    rebuy:4.1, rebuySrc:"새벽배송 구독 구조, '한 번 쓰면 계속 쓰게 된다' 충성도 언급 다수",
     repMenu:"프리미엄 밀키트 2인", repPrice:"프리미엄가 (1인 ~10,000원)", won:10000,
     cats:["전골/나베","국물/탕","고기"],
     menus:["나베","파스타","스테이크","찌개","새벽배송","프리미엄"],
@@ -625,6 +718,7 @@ const SITES = [
     name:"온작 (성일식품)",
     desc:"'이영자 갈비탕'으로 알려진 탕 전문. 뼈없는 갈비탕 등 부담 없는 가격의 국물 메뉴.",
     price:4.5, taste:3.9, reviewScore:3.7, reviewCount:"갈비탕 후기 다수",
+    rebuy:3.6, rebuySrc:"단일 아이템 중심으로 재구매 범위 좁음, '국물용으로 가끔 재구매' 패턴",
     repMenu:"이영자 뼈없는 갈비탕 900g", repPrice:"7,900원", won:3950,
     cats:["국물/탕","고기"],
     menus:["갈비탕","뼈없는 갈비탕","탕","국","이영자"],
@@ -637,6 +731,7 @@ const SITES = [
     name:"비비고 (CJ제일제당)",
     desc:"HMR 국물요리 1위급. 갈비탕·육개장·찌개를 어디서나 살 수 있고, 대용량 묶음 단가가 매우 저렴.",
     price:4.6, taste:4.1, reviewScore:4.6, reviewCount:"국물요리 리뷰 최다급",
+    rebuy:4.6, rebuySrc:"마트·온라인 어디서나 구매 가능한 접근성, '집에 항상 쟁여둔다' 생필품형 재구매 최상위",
     repMenu:"뼈없는 갈비탕 400g 6개입", repPrice:"약 17,290원 (6개)", won:2900,
     cats:["국물/탕","대용량"],
     menus:["갈비탕","육개장","김치찌개","된장찌개","미역국","사골곰탕","즉석탕","설렁탕"],
@@ -650,6 +745,7 @@ const SITES = [
     name:"쿠캣 (원팩/COOKAT)",
     desc:"SNS에서 뜬 그 간편식. 점보 감자탕·통닭 등 냉동 밀키트가 가성비로 입소문, GS더프레시 입점.",
     price:4.2, taste:4.2, reviewScore:4.2, reviewCount:"감자탕·통닭 후기 다수",
+    rebuy:4.0, rebuySrc:"SNS 바이럴 후 재구매 전환 패턴, GS더프레시 오프라인 접근성이 반복 구매 보조",
     repMenu:"원팩 점보 감자탕", repPrice:"1만원대 (냉동)", won:6000,
     cats:["국물/탕","고기"],
     menus:["감자탕","통닭","마라탕","떡볶이","곱창","원팩"],
@@ -663,6 +759,7 @@ const SITES = [
     name:"잇츠온 (hy·한국야쿠르트)",
     desc:"프레시매니저가 문 앞까지 배송하는 밀키트. 순두부찌개·밀푀유나베 등 깔끔한 한식 위주.",
     price:3.4, taste:4.2, reviewScore:4.0, reviewCount:"한식 밀키트 후기 다수",
+    rebuy:4.0, rebuySrc:"방문 배송 특성상 정기 구독형 반복 구매 구조, 야쿠르트 아줌마 채널 충성도",
     repMenu:"차돌 순두부찌개", repPrice:"약 16,900원", won:8450,
     cats:["국물/탕","전골/나베"],
     menus:["순두부찌개","밀푀유나베","부대찌개","찌개","나베","한식"],
@@ -676,6 +773,7 @@ const SITES = [
     name:"한끼통살",
     desc:"닭가슴살·저당 도시락 전문. 다이어트·고단백 식단을 간편하게 챙기고 싶을 때 좋은 선택.",
     price:4.0, taste:3.8, reviewScore:4.1, reviewCount:"저당도시락·닭가슴살 후기 다수",
+    rebuy:4.2, rebuySrc:"식단관리 목적 반복 구매 구조, '다이어트 기간 동안 계속 주문' 패턴 다수",
     repMenu:"저당 도시락 10개입", repPrice:"약 42,900원 (10개)", won:4290,
     cats:["고기","대용량"],
     menus:["닭가슴살","저당도시락","다이어트","도시락","고단백","런치백"],
@@ -689,6 +787,7 @@ const SITES = [
     name:"돌쇠네 농산물",
     desc:"과일·수산물·김치·제철채소까지 다루는 산지직송 종합몰. 리뷰 수가 어마어마하고 신선도 호평.",
     price:4.2, taste:4.5, reviewScore:4.6, reviewCount:"상품별 리뷰 수천~수만",
+    rebuy:4.5, rebuySrc:"리뷰 수천~수만 규모, '제철마다 또 산다' 계절형 반복 구매 언급 다수",
     repMenu:"여수 쪽파 파김치 / 머스크메론 등", repPrice:"파김치 9,900원~", won:9900, unit:"대표상품가",
     cats:["농산물/신선"],
     menus:["과일","머스크메론","멜론","꽃게","과메기","김치","파김치","열무김치","냉이","강낭콩","채소","수산물","산지직송"],
@@ -703,6 +802,7 @@ const SITES = [
     name:"오아시스마켓",
     desc:"유기농·친환경 전문 새벽배송몰. 생협 출신으로 품질·가성비를 함께 잡았다는 평이 많음.",
     price:4.3, taste:4.3, reviewScore:4.4, reviewCount:"유기농 식재료 후기 다수",
+    rebuy:4.3, rebuySrc:"새벽배송 구독 구조, 유기농 충성 고객층 반복 구매, '이제 여기서만 산다' 패턴",
     repMenu:"유기농 채소·두부·콩나물 등", repPrice:"품목별 상이", won:5000, unit:"대표상품가",
     cats:["농산물/신선"],
     menus:["유기농","친환경","채소","두부","콩나물","과일","새벽배송","무염"],
@@ -717,6 +817,7 @@ const SITES = [
     name:"정육각",
     desc:"도축 후 빠르게 보내는 '초신선' 정육 전문. 삼겹살·한우·계란 등 신선도와 품질이 강점.",
     price:3.6, taste:4.5, reviewScore:4.4, reviewCount:"정육·한우 후기 다수",
+    rebuy:4.4, rebuySrc:"신선도 차이를 직접 체감 후 '이제 정육각만 산다' 전환형 충성 재구매 패턴",
     repMenu:"초신선 삼겹살 / 한우 투뿔", repPrice:"부위별 상이", won:9000, unit:"대표상품가",
     cats:["농산물/신선","고기"],
     menus:["삼겹살","한우","돼지고기","닭고기","계란","정육","초신선","선물세트"],
@@ -731,6 +832,7 @@ const SITES = [
     name:"충남 농사랑 (로컬푸드)",
     desc:"농가가 직접 보내는 충남 로컬푸드 직거래몰. 중간 유통이 줄어 신선하고 가격이 착함.",
     price:4.6, taste:4.1, reviewScore:3.9, reviewCount:"제철 농산물 후기 다수",
+    rebuy:3.8, rebuySrc:"후기 내 '퀄리티 좋아 재구매' 직접 언급, 제철 주기 특성상 연간 구매 빈도는 제한적",
     repMenu:"제철 농산물(사과·감자 등)", repPrice:"산지직송가", won:4000, unit:"대표상품가",
     cats:["농산물/신선"],
     menus:["제철농산물","사과","감자","채소","로컬푸드","직거래","산지직송"],
@@ -782,16 +884,19 @@ function renderCompare(list, q){
   const cheapest = list.reduce((a,b)=> b.won < a.won ? b : a);
   const tasty    = list.reduce((a,b)=> b.taste > a.taste ? b : a);
   const best     = list.reduce((a,b)=> valueScore(b) > valueScore(a) ? b : a);
-  const cell = (lbl,s,val)=>
-    `<a class="cmp-item" href="${s.url}${q?("+"+encodeURIComponent(q)):""}" target="_blank" rel="noopener">`+
+  const rebuyList = list.filter(s=>s.rebuy!=null);
+  const topRebuy  = rebuyList.length ? rebuyList.reduce((a,b)=>b.rebuy>a.rebuy?b:a) : null;
+  const cell = (lbl,s,val,type)=>
+    `<a class="cmp-item${type?' cmp-'+type:''}" href="${s.url}${q?("+"+encodeURIComponent(q)):""}" target="_blank" rel="noopener">`+
     `<span class="cmp-lbl">${lbl}</span><b>${s.name.split(" (")[0]}</b><span class="cmp-v">${val}</span></a>`;
   box.innerHTML =
     `<div class="cmp-h">🥇 '${q}' 한 끼, 어디가 제일 나을까?`+
     `<small>이 메뉴를 취급하는 ${list.length}곳을 1인분 기준으로 비교했어요 · ${DATA_DATE} 기준</small></div>`+
     `<div class="cmp-row">`+
-      cell("💰 1인분 최저가", cheapest, won(cheapest.won)+"원")+
-      cell("😋 맛 1위", tasty, fmt(tasty.taste)+"점")+
-      cell("⚖️ 가성비 1위", best, fmt(valueScore(best))+"점")+
+      cell("💰 1인분 최저가", cheapest, won(cheapest.won)+"원", "price")+
+      cell("😋 맛 1위", tasty, fmt(tasty.taste)+"점", "taste")+
+      cell("⚖️ 가성비 1위", best, fmt(valueScore(best))+"점", "value")+
+      (topRebuy ? cell("🔁 재구매 1위", topRebuy, fmt(topRebuy.rebuy)+"점", "rebuy") : "")+
     `</div>`+
     (()=>{ const noted = list.filter(s=>s.note).map(s=>s.name.split(" (")[0]);
       return noted.length
@@ -917,16 +1022,20 @@ function render(){
 
       <div class="scores">
         <div class="score">
-          <div class="s-top"><span>💰 가격</span><span class="s-val">${fmt(s.price)}</span></div>
+          <div class="s-top"><span class="s-lbl">💰 가격</span><span class="s-val">${fmt(s.price)}</span></div>
           <div class="bar price"><i style="width:${pct(s.price)}"></i></div>
         </div>
         <div class="score">
-          <div class="s-top"><span>😋 맛</span><span class="s-val">${fmt(s.taste)}</span></div>
+          <div class="s-top"><span class="s-lbl">😋 맛</span><span class="s-val">${fmt(s.taste)}</span></div>
           <div class="bar taste"><i style="width:${pct(s.taste)}"></i></div>
         </div>
         <div class="score">
-          <div class="s-top"><span>📝 후기신뢰</span><span class="s-val">${fmt(s.reviewScore)}</span></div>
+          <div class="s-top"><span class="s-lbl">📝 후기신뢰</span><span class="s-val">${fmt(s.reviewScore)}</span></div>
           <div class="bar review"><i style="width:${pct(s.reviewScore)}"></i></div>
+        </div>
+        <div class="score score-rebuy"${s.rebuySrc?` title="재구매 점수 근거 — ${s.rebuySrc.replace(/"/g,'&quot;')}"`:""}>
+          <div class="s-top"><span class="s-lbl">🔁 재구매</span><span class="s-val ${s.rebuy==null?'na':''}">${s.rebuy!=null?fmt(s.rebuy):"정보없음"}</span></div>
+          <div class="bar rebuy"><i style="width:${s.rebuy!=null?pct(s.rebuy):'0%'}"></i></div>
         </div>
       </div>
 
