@@ -27,6 +27,65 @@
 <meta name="twitter:description" content="인기 밀키트/식자재 22곳을 실제 후기와 가격으로 비교·추천." />
 <meta name="twitter:image" content="https://mealkit-milbigyo.netlify.app/og-image.png" />
 <link rel="canonical" href="https://mealkit-milbigyo.netlify.app/" />
+<!-- 네이버 서치어드바이저 사이트 소유확인 (등록 후 content 값 교체) -->
+<meta name="naver-site-verification" content="6db3d33dd9c18b2b54be76244147d6a562b1e455" />
+<!-- 구조화 데이터: 검색결과 리치 스니펫(FAQ·사이트 검색창) 노출용 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "밀비교",
+  "alternateName": "밀키트 비교",
+  "url": "https://mealkit-milbigyo.netlify.app/",
+  "description": "인기 밀키트·식자재 사이트 22곳을 실제 후기와 가격으로 비교·추천하는 서비스",
+  "inLanguage": "ko-KR",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://mealkit-milbigyo.netlify.app/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "밀키트는 어디가 제일 싸나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "밀비교는 맛꾼·장사의신·프레시지·마이셰프 등 인기 밀키트/식자재 22곳의 실제 쇼핑가를 1인분 환산가격으로 비교합니다. '저렴한순'으로 정렬하면 같은 메뉴 기준 가장 싼 곳을 한눈에 볼 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "밀키트 비교는 어떤 기준으로 점수를 매기나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "가격(1인분 환산), 맛, 후기 신뢰도(후기 수와 최신성) 세 가지를 합산해 가성비 점수를 산정합니다. 실제 네이버 후기와 쇼핑가 데이터를 기반으로 매주 갱신합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "1인가구에 맞는 밀키트는 어떻게 찾나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "밀비교의 30초 맞춤추천 퀴즈에서 인원·예산·선호 메뉴를 고르면 조건에 맞는 밀키트를 추천합니다. 1인분 환산가격과 가격대 슬라이더 필터로 소량·소포장 상품도 쉽게 거를 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "비교 데이터는 얼마나 자주 갱신되나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "매주 월요일 네이버 검색 데이터를 기준으로 가격·후기 점수를 자동 갱신합니다. 페이지 상단에서 최신 갱신 날짜를 확인할 수 있습니다."
+      }
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#0f1115; --card:#181b22; --card2:#1f232c; --line:#2a2f3a;
@@ -77,6 +136,28 @@
   .search-hint .kw:hover{border-color:var(--accent);color:var(--txt)}
   .search-status{margin-top:14px;font-size:13px;color:var(--accent2);display:none}
   .search-status a{color:var(--blue);text-decoration:underline}
+  /* 메뉴별 한 끼 최저가 헤드투헤드 (밀비교 차별 기능) */
+  .compare{display:none;margin:16px 0 4px;background:linear-gradient(135deg,#231a10,#181b22);
+    border:1px solid var(--accent);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}
+  .compare.show{display:block}
+  .cmp-h{font-size:15px;font-weight:800}
+  .cmp-h small{display:block;font-weight:500;color:var(--sub);font-size:12px;margin-top:4px}
+  .cmp-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+  .cmp-item{background:var(--card2);border:1px solid var(--line);border-radius:12px;
+    padding:11px 13px;display:flex;flex-direction:column;gap:3px;text-decoration:none;color:var(--txt)}
+  .cmp-item:hover{border-color:var(--accent)}
+  .cmp-lbl{font-size:11px;color:var(--sub)}
+  .cmp-item b{font-size:14px}
+  .cmp-v{font-size:13px;color:var(--accent2);font-weight:700}
+  @media(max-width:560px){.cmp-row{grid-template-columns:1fr}}
+  /* CS 연동: 오류/품절 신고·사이트 추가요청 */
+  .reportlink{display:inline-block;margin-top:10px;font-size:12px;color:var(--sub);text-decoration:none}
+  .reportlink:hover{color:var(--accent2);text-decoration:underline}
+  .addsite{margin:20px 0 4px;text-align:center;background:var(--card2);
+    border:1px dashed var(--line);border-radius:14px;padding:18px 16px;font-size:14px;color:var(--sub)}
+  .addsite b{color:var(--txt)}
+  .addsite a{display:inline-block;margin-top:8px;color:#0f1115;background:var(--accent2);
+    padding:8px 16px;border-radius:999px;font-weight:700;text-decoration:none}
 
   /* QUIZ */
   .quiz{background:linear-gradient(135deg,#231016,#181b22);border:1px solid var(--line);
@@ -330,7 +411,16 @@
     <div class="chip favchip" id="favChip">❤️ 찜만 보기</div>
   </div>
 
+  <!-- 메뉴별 한 끼 최저가 비교 (검색 시 노출) -->
+  <div class="compare" id="compareBox"></div>
+
   <div class="grid" id="grid"></div>
+
+  <!-- 빠진 사이트 추천 (CS '추가요청' 문의 연동) -->
+  <div class="addsite">
+    찾는 밀키트·반찬가게가 <b>아직 없나요?</b> 추천해 주시면 다음 갱신 때 검토해 비교에 넣어드려요.<br/>
+    <a href="mailto:milbigyo@gmail.com?subject=%5B%EC%82%AC%EC%9D%B4%ED%8A%B8%20%EC%B6%94%EA%B0%80%20%EC%9A%94%EC%B2%AD%5D&body=%EB%B9%84%EA%B5%90%EC%97%90%20%EB%84%A3%EC%96%B4%EC%A3%BC%EC%84%B8%EC%9A%94%3A%0A-%20%EC%82%AC%EC%9D%B4%ED%8A%B8%2F%EB%B8%8C%EB%9E%9C%EB%93%9C%EB%AA%85%3A%20%0A-%20%EB%A7%81%ED%81%AC(%EC%9E%88%EC%9C%BC%EB%A9%B4)%3A%20%0A-%20%EC%B6%94%EC%B2%9C%20%EC%9D%B4%EC%9C%A0%3A%20">＋ 빠진 사이트 추천하기</a>
+  </div>
 
   <div class="disclaimer">
     <b>ℹ️ 점수·가격은 어떻게 매겼나요?</b><br/>
@@ -671,6 +761,27 @@ function pushAds(){
 /* 가성비 종합 = 가격*0.45 + 맛*0.45 + 후기신뢰*0.10 */
 function valueScore(s){ return s.price*0.45 + s.taste*0.45 + s.reviewScore*0.10; }
 
+/* 메뉴별 한 끼 최저가 헤드투헤드 — 검색 시 "이 메뉴 어디가 제일 싸/맛있어?" 즉답 (밀비교 차별 기능) */
+function renderCompare(list, q){
+  const box = document.getElementById("compareBox");
+  if(!q || list.length < 2){ box.classList.remove("show"); box.innerHTML=""; return; }
+  const cheapest = list.reduce((a,b)=> b.won < a.won ? b : a);
+  const tasty    = list.reduce((a,b)=> b.taste > a.taste ? b : a);
+  const best     = list.reduce((a,b)=> valueScore(b) > valueScore(a) ? b : a);
+  const cell = (lbl,s,val)=>
+    `<a class="cmp-item" href="${s.url}${q?("+"+encodeURIComponent(q)):""}" target="_blank" rel="noopener">`+
+    `<span class="cmp-lbl">${lbl}</span><b>${s.name.split(" (")[0]}</b><span class="cmp-v">${val}</span></a>`;
+  box.innerHTML =
+    `<div class="cmp-h">🥇 '${q}' 한 끼, 어디가 제일 나을까?`+
+    `<small>이 메뉴를 취급하는 ${list.length}곳을 1인분 기준으로 비교했어요 · ${DATA_DATE} 기준</small></div>`+
+    `<div class="cmp-row">`+
+      cell("💰 1인분 최저가", cheapest, won(cheapest.won)+"원")+
+      cell("😋 맛 1위", tasty, fmt(tasty.taste)+"점")+
+      cell("⚖️ 가성비 1위", best, fmt(valueScore(best))+"점")+
+    `</div>`;
+  box.classList.add("show");
+}
+
 /* 찜 / 내 별점 (브라우저에 저장) */
 const LS_FAV="milbigyo_favs", LS_RATE="milbigyo_ratings";
 let FAV = JSON.parse(localStorage.getItem(LS_FAV)||"[]");
@@ -733,6 +844,8 @@ function render(){
       if(key==="myrating") return (RATE[b.name]||0)-(RATE[a.name]||0);
       return b.value-a.value;
     });
+
+  renderCompare(list, q);
 
   document.getElementById("favChip").textContent = `❤️ 찜만 보기${FAV.length?` (${FAV.length})`:""}`;
 
@@ -813,6 +926,7 @@ function render(){
         ${officialBtn}
         <a class="btn primary" href="${s.url}${q?("+"+encodeURIComponent(q)):""}" target="_blank" rel="noopener">🔎 ${q?`'${q}' `:""}가격·후기 보러가기</a>
       </div>
+      <a class="reportlink" href="mailto:milbigyo@gmail.com?subject=${encodeURIComponent("[오류제보] "+s.name)}&body=${encodeURIComponent("'"+s.name+"'의 가격/점수/품절/링크 관련 제보입니다.\n\n- 어떤 정보가 다른가요?: \n- 보신 화면(상품명·가격): \n\n(밀비교 "+DATA_DATE+" 기준 데이터)")}">🛠 가격이 다르거나 품절인가요? 알려주기</a>
     </div>`;
   });
 
