@@ -16,7 +16,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="밀비교" />
 <meta property="og:title" content="밀비교 — 어디가 제일 싸고 맛있을까?" />
-<meta property="og:description" content="맛꾼·장사의신·프레시지 등 인기 밀키트/식자재 18곳을 실제 후기와 가격으로 한눈에 비교·추천." />
+<meta property="og:description" content="맛꾼·장사의신·프레시지 등 인기 밀키트/식자재 22곳을 실제 후기와 가격으로 한눈에 비교·추천." />
 <meta property="og:url" content="https://mealkit-milbigyo.netlify.app/" />
 <meta property="og:image" content="https://mealkit-milbigyo.netlify.app/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -24,7 +24,7 @@
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="밀비교 — 어디가 제일 싸고 맛있을까?" />
-<meta name="twitter:description" content="인기 밀키트/식자재 18곳을 실제 후기와 가격으로 비교·추천." />
+<meta name="twitter:description" content="인기 밀키트/식자재 22곳을 실제 후기와 가격으로 비교·추천." />
 <meta name="twitter:image" content="https://mealkit-milbigyo.netlify.app/og-image.png" />
 <link rel="canonical" href="https://mealkit-milbigyo.netlify.app/" />
 <style>
@@ -278,6 +278,7 @@
         <div class="opt" data-v="고기">고기·구이</div>
         <div class="opt" data-v="전골/나베">전골·나베</div>
         <div class="opt" data-v="대용량">대용량·쟁여두기</div>
+        <div class="opt" data-v="농산물/신선">🥬 농산물·신선</div>
       </div>
     </div>
     <div class="q-result" id="qResult">
@@ -323,6 +324,7 @@
       <div class="chip" data-cat="고기">고기</div>
       <div class="chip" data-cat="전골/나베">전골·나베</div>
       <div class="chip" data-cat="대용량">대용량</div>
+      <div class="chip" data-cat="농산물/신선">🥬 농산물·신선</div>
     </div>
     <div class="spacer"></div>
     <div class="chip favchip" id="favChip">❤️ 찜만 보기</div>
@@ -582,10 +584,61 @@ const SITES = [
     quote:"잡내 적고 촉촉한 편. 한 끼 단백질·식단 관리용으로 냉동 쟁여두기 좋아요.",
     src:"네이버쇼핑 한끼통살 저당도시락",
     url:"https://search.shopping.naver.com/search/all?query=한끼통살+도시락"
+  },
+  {
+    name:"돌쇠네 농산물",
+    desc:"과일·수산물·김치·제철채소까지 다루는 산지직송 종합몰. 리뷰 수가 어마어마하고 신선도 호평.",
+    price:4.2, taste:4.5, reviewScore:4.6, reviewCount:"상품별 리뷰 수천~수만",
+    repMenu:"여수 쪽파 파김치 / 머스크메론 등", repPrice:"파김치 9,900원~", won:9900, unit:"대표상품가",
+    cats:["농산물/신선"],
+    menus:["과일","머스크메론","멜론","꽃게","과메기","김치","파김치","열무김치","냉이","강낭콩","채소","수산물","산지직송"],
+    img:"https://shopping-phinf.pstatic.net/main_5824357/58243578144.20251223143510.jpg",
+    official:"https://www.dolfarmer.com",
+    quote:"박스 열자마자 신선함이 느껴져요. 리뷰 수가 워낙 많아 믿고 샀는데 꽃게 알도 꽉 차 대성공.",
+    src:"네이버 블로그 돌쇠네농산물 내돈내산 후기",
+    url:"https://search.shopping.naver.com/search/all?query=돌쇠네농산물"
+  },
+  {
+    name:"오아시스마켓",
+    desc:"유기농·친환경 전문 새벽배송몰. 생협 출신으로 품질·가성비를 함께 잡았다는 평이 많음.",
+    price:4.3, taste:4.3, reviewScore:4.4, reviewCount:"유기농 식재료 후기 다수",
+    repMenu:"유기농 채소·두부·콩나물 등", repPrice:"품목별 상이", won:5000, unit:"대표상품가",
+    cats:["농산물/신선"],
+    menus:["유기농","친환경","채소","두부","콩나물","과일","새벽배송","무염"],
+    img:null,
+    official:"https://www.oasis.co.kr",
+    quote:"유기농업계 관계자도 인정한 품질과 가성비. 두부·콩나물이 특히 신선하다는 평.",
+    src:"네이버 블로그 오아시스마켓 상품추천 후기",
+    url:"https://search.shopping.naver.com/search/all?query=오아시스마켓"
+  },
+  {
+    name:"정육각",
+    desc:"도축 후 빠르게 보내는 '초신선' 정육 전문. 삼겹살·한우·계란 등 신선도와 품질이 강점.",
+    price:3.6, taste:4.5, reviewScore:4.4, reviewCount:"정육·한우 후기 다수",
+    repMenu:"초신선 삼겹살 / 한우 투뿔", repPrice:"부위별 상이", won:9000, unit:"대표상품가",
+    cats:["농산물/신선","고기"],
+    menus:["삼겹살","한우","돼지고기","닭고기","계란","정육","초신선","선물세트"],
+    img:null,
+    official:"https://www.jeongyukgak.com",
+    quote:"도축 후 빠른 배송이라 확실히 신선. 한우 선물세트도 만족, 구울 때 잡내가 없어요.",
+    src:"네이버 블로그 정육각 내돈내산 후기",
+    url:"https://search.shopping.naver.com/search/all?query=정육각"
+  },
+  {
+    name:"충남 농사랑 (로컬푸드)",
+    desc:"농가가 직접 보내는 충남 로컬푸드 직거래몰. 중간 유통이 줄어 신선하고 가격이 착함.",
+    price:4.6, taste:4.1, reviewScore:3.9, reviewCount:"제철 농산물 후기 다수",
+    repMenu:"제철 농산물(사과·감자 등)", repPrice:"산지직송가", won:4000, unit:"대표상품가",
+    cats:["농산물/신선"],
+    menus:["제철농산물","사과","감자","채소","로컬푸드","직거래","산지직송"],
+    img:null,
+    quote:"농가에서 바로 보내줘 중간 유통이 줄어 신선한데 가격도 착해요. 퀄리티 좋아 재구매.",
+    src:"네이버 블로그 충남 농사랑 직거래 후기",
+    url:"https://search.shopping.naver.com/search/all?query=충남+농사랑+농산물"
   }
 ];
 
-const CAT_EMOJI = {"국물/탕":"🍲","고기":"🍖","전골/나베":"🍳","대용량":"📦"};
+const CAT_EMOJI = {"국물/탕":"🍲","고기":"🍖","전골/나베":"🍳","대용량":"📦","농산물/신선":"🥬"};
 
 /* ===== 구글 애드센스 설정 =====
    애드센스 승인 후 아래 3곳만 채우면 실제 광고가 자동으로 표시됩니다.
@@ -727,7 +780,7 @@ function render(){
       </div>
 
       <div class="priceline">
-        <span class="won">${won(s.won)}원<small> / 1인분 환산</small></span>
+        <span class="won">${won(s.won)}원<small> / ${s.unit||"1인분 환산"}</small></span>
         <span class="rep">대표: ${hl(s.repMenu,q)} · ${s.repPrice}</span>
       </div>
 
