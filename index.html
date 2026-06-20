@@ -207,6 +207,16 @@
   .addsite a{display:inline-block;margin-top:8px;color:#0f1115;background:var(--accent2);
     padding:8px 16px;border-radius:999px;font-weight:700;text-decoration:none}
 
+  /* 신고/추가요청 토스트 */
+  #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(12px);
+    background:var(--card2);border:1px solid var(--line);color:var(--txt);
+    font-size:14px;padding:12px 20px;border-radius:12px;
+    box-shadow:0 4px 20px rgba(0,0,0,.55);
+    opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;
+    white-space:nowrap;max-width:calc(100vw - 40px);text-align:center;z-index:9999}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  @media(max-width:480px){#toast{font-size:13px;padding:10px 16px;bottom:18px}}
+
   /* QUIZ */
   .quiz{background:linear-gradient(135deg,#231016,#181b22);border:1px solid var(--line);
     border-radius:20px;padding:24px;margin:24px auto;box-shadow:var(--shadow)}
@@ -1209,8 +1219,37 @@ document.getElementById("updateBadge").textContent = `🔄 매주 자동 갱신 
   document.getElementById("adTop").innerHTML = adHTML(ADSENSE.slotTop,"auto");
 })();
 
+/* 신고/추가요청 토스트 */
+(function(){
+  const toast = document.getElementById("toast");
+  let _timer = null;
+
+  function showToast(msg){
+    if(_timer){ clearTimeout(_timer); }
+    toast.textContent = msg;
+    toast.classList.add("show");
+    _timer = setTimeout(function(){ toast.classList.remove("show"); _timer = null; }, 3000);
+  }
+
+  /* 카드 내 .reportlink (이벤트 위임: #grid) */
+  document.getElementById("grid").addEventListener("click", function(e){
+    var a = e.target.closest(".reportlink");
+    if(a){ showToast("📨 신고가 접수됐어요. 확인 후 반영하겠습니다. (메일 앱이 열려요)"); }
+  });
+
+  /* 사이트 추가요청 .addsite a (직접 바인딩) */
+  var addsiteLink = document.querySelector(".addsite a");
+  if(addsiteLink){
+    addsiteLink.addEventListener("click", function(){
+      showToast("📨 추가요청을 받았어요. 다음 갱신 때 검토해 넣어드릴게요. (메일 앱이 열려요)");
+    });
+  }
+})();
+
 render();
 recommend();
 </script>
+<!-- 신고/추가요청 접수 확인 토스트 -->
+<div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 </body>
 </html>
