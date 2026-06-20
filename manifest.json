@@ -1,0 +1,19 @@
+{
+  "name": "밀비교 — 밀키트 비교·추천",
+  "short_name": "밀비교",
+  "description": "맛꾼·장사의신·프레시지 등 인기 밀키트/식자재 사이트를 실제 후기와 가격으로 비교하고 추천받는 서비스",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f1115",
+  "theme_color": "#ff6b35",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
