@@ -175,6 +175,15 @@
   .install.show{display:flex}
   .install .t{flex:1;font-size:13px;color:var(--txt)}
   .install .t small{display:block;color:var(--sub);font-size:11px;margin-top:2px}
+  /* 광고 영역 */
+  .adwrap{margin:18px 0 0}
+  .adbox{position:relative;border:1px dashed #3a414f;border-radius:16px;background:#14171e;
+    padding:18px;text-align:center;overflow:hidden}
+  .adbox .adlbl{position:absolute;top:8px;left:12px;font-size:10px;color:var(--sub);
+    letter-spacing:1px;font-weight:700}
+  .adbox .adph{color:var(--sub);font-size:13px;padding:18px 0;line-height:1.6}
+  .adbox .adph small{color:#6b7280;font-size:11px}
+  .adbox ins{display:block}
 
   footer{border-top:1px solid var(--line);margin-top:50px;padding:28px 0 50px;
     color:var(--sub);font-size:12px;text-align:center;line-height:1.7}
@@ -256,6 +265,9 @@
       <div class="why" id="qWhy"></div>
     </div>
   </div>
+
+  <!-- 상단 배너 광고 -->
+  <div class="adwrap" id="adTop"></div>
 
   <!-- 가격대 슬라이더 -->
   <div class="controls">
@@ -499,6 +511,34 @@ const SITES = [
 
 const CAT_EMOJI = {"국물/탕":"🍲","고기":"🍖","전골/나베":"🍳","대용량":"📦"};
 
+/* ===== 구글 애드센스 설정 =====
+   애드센스 승인 후 아래 3곳만 채우면 실제 광고가 자동으로 표시됩니다.
+   (값이 비어 있으면 '광고 영역' 자리표시만 보입니다) */
+const ADSENSE = {
+  client: "",        // 예: "ca-pub-1234567890123456"  ← 애드센스 게시자 ID
+  slotTop: "",       // 상단 배너 광고 단위 슬롯 ID (예: "1234567890")
+  slotInFeed: ""     // 카드 사이 인피드 광고 단위 슬롯 ID
+};
+const adsReady = () => !!ADSENSE.client;
+
+/* 광고 박스 HTML (실제 슬롯ID가 있으면 애드센스 ins, 없으면 자리표시) */
+function adHTML(slotId, fmt){
+  if(adsReady() && slotId){
+    return `<div class="adbox"><span class="adlbl">AD</span>`+
+      `<ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE.client}" `+
+      `data-ad-slot="${slotId}" data-ad-format="${fmt||'auto'}" data-full-width-responsive="true"></ins></div>`;
+  }
+  return `<div class="adbox"><span class="adlbl">AD · 광고영역</span>`+
+    `<div class="adph">📢 광고가 표시될 자리예요<br/><small>애드센스 승인 후 자동으로 광고가 들어갑니다</small></div></div>`;
+}
+/* DOM에 들어간 애드센스 슬롯 활성화 */
+function pushAds(){
+  if(!adsReady()) return;
+  document.querySelectorAll("ins.adsbygoogle:not([data-adsbygoogle-status])").forEach(()=>{
+    try{ (window.adsbygoogle = window.adsbygoogle || []).push({}); }catch(e){}
+  });
+}
+
 /* 가성비 종합 = 가격*0.45 + 맛*0.45 + 후기신뢰*0.10 */
 function valueScore(s){ return s.price*0.45 + s.taste*0.45 + s.reviewScore*0.10; }
 
@@ -578,7 +618,7 @@ function render(){
     return;
   }
 
-  grid.innerHTML = list.map((s,i)=>{
+  const cards = list.map((s,i)=>{
     const bestPrice = s.price===maxPrice ? `<span class="tag best-price">💰 최저가급</span>`:"";
     const bestTaste = s.taste===maxTaste ? `<span class="tag best-taste">😋 맛 1위</span>`:"";
     const emoji = CAT_EMOJI[s.cats[0]] || "🍽️";
@@ -645,7 +685,15 @@ function render(){
         <a class="btn primary" href="${s.url}${q?("+"+encodeURIComponent(q)):""}" target="_blank" rel="noopener">🔎 ${q?`'${q}' `:""}가격·후기 보러가기</a>
       </div>
     </div>`;
-  }).join("");
+  });
+
+  const out=[];
+  cards.forEach((c,i)=>{
+    out.push(c);
+    if((i+1)%4===0 && i!==cards.length-1) out.push(adHTML(ADSENSE.slotInFeed,"fluid"));
+  });
+  grid.innerHTML = out.join("");
+  pushAds();
 }
 
 /* 검색 */
@@ -764,6 +812,17 @@ function recommend(){
 /* 갱신일 */
 document.getElementById("updateText").textContent = DATA_DATE;
 document.getElementById("updateBadge").textContent = `🔄 매주 자동 갱신 · 최근 ${DATA_DATE}`;
+
+/* 광고 초기화: 애드센스 로더 주입 + 상단 배너 */
+(function initAds(){
+  if(adsReady()){
+    const sc=document.createElement("script");
+    sc.async=true; sc.crossOrigin="anonymous";
+    sc.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+ADSENSE.client;
+    document.head.appendChild(sc);
+  }
+  document.getElementById("adTop").innerHTML = adHTML(ADSENSE.slotTop,"auto");
+})();
 
 render();
 recommend();

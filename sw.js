@@ -1,5 +1,5 @@
 /* 밀비교 서비스워커 — 오프라인 캐시 */
-const CACHE = "milbigyo-v2";
+const CACHE = "milbigyo-v3";
 const ASSETS = ["./", "./index.html", "./manifest.json", "./icon.svg", "./og-image.png"];
 
 self.addEventListener("install", e=>{
