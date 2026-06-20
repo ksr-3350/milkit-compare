@@ -16,7 +16,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="밀비교" />
 <meta property="og:title" content="밀비교 — 어디가 제일 싸고 맛있을까?" />
-<meta property="og:description" content="맛꾼·장사의신·프레시지 등 인기 밀키트/식자재 14곳을 실제 후기와 가격으로 한눈에 비교·추천." />
+<meta property="og:description" content="맛꾼·장사의신·프레시지 등 인기 밀키트/식자재 18곳을 실제 후기와 가격으로 한눈에 비교·추천." />
 <meta property="og:url" content="https://mealkit-milbigyo.netlify.app/" />
 <meta property="og:image" content="https://mealkit-milbigyo.netlify.app/og-image.png" />
 <meta property="og:image:width" content="1200" />
@@ -24,7 +24,7 @@
 <meta property="og:locale" content="ko_KR" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="밀비교 — 어디가 제일 싸고 맛있을까?" />
-<meta name="twitter:description" content="인기 밀키트/식자재 14곳을 실제 후기와 가격으로 비교·추천." />
+<meta name="twitter:description" content="인기 밀키트/식자재 18곳을 실제 후기와 가격으로 비교·추천." />
 <meta name="twitter:image" content="https://mealkit-milbigyo.netlify.app/og-image.png" />
 <link rel="canonical" href="https://mealkit-milbigyo.netlify.app/" />
 <style>
@@ -532,6 +532,56 @@ const SITES = [
     quote:"뼈 발라낼 필요 없이 편하게. 가격 대비 고기 양도 괜찮아 혼밥 국물용으로 무난.",
     src:"네이버 쇼핑 온작 갈비탕",
     url:"https://search.shopping.naver.com/search/all?query=온작+갈비탕"
+  },
+  {
+    name:"비비고 (CJ제일제당)",
+    desc:"HMR 국물요리 1위급. 갈비탕·육개장·찌개를 어디서나 살 수 있고, 대용량 묶음 단가가 매우 저렴.",
+    price:4.6, taste:4.1, reviewScore:4.6, reviewCount:"국물요리 리뷰 최다급",
+    repMenu:"뼈없는 갈비탕 400g 6개입", repPrice:"약 17,290원 (6개)", won:2900,
+    cats:["국물/탕","대용량"],
+    menus:["갈비탕","육개장","김치찌개","된장찌개","미역국","사골곰탕","즉석탕","설렁탕"],
+    img:"https://shopping-phinf.pstatic.net/main_5837698/58376982523.20260103235714.jpg",
+    official:"https://www.cjthemarket.com",
+    quote:"어디서나 구하기 쉽고 실패가 없는 맛. 묶음으로 사두면 1그릇당 단가가 정말 착해요.",
+    src:"네이버쇼핑·블로그 비비고 국물요리 후기",
+    url:"https://search.shopping.naver.com/search/all?query=비비고+국물요리"
+  },
+  {
+    name:"쿠캣 (원팩/COOKAT)",
+    desc:"SNS에서 뜬 그 간편식. 점보 감자탕·통닭 등 냉동 밀키트가 가성비로 입소문, GS더프레시 입점.",
+    price:4.2, taste:4.2, reviewScore:4.2, reviewCount:"감자탕·통닭 후기 다수",
+    repMenu:"원팩 점보 감자탕", repPrice:"1만원대 (냉동)", won:6000,
+    cats:["국물/탕","고기"],
+    menus:["감자탕","통닭","마라탕","떡볶이","곱창","원팩"],
+    img:null,
+    quote:"고기도 부드러워 맛과 가성비 둘 다 잡은 감자탕 밀키트. 핏물 빼는 번거로움 없이 간편.",
+    src:"네이버 블로그 쿠캣 점보감자탕 내돈내산 후기",
+    url:"https://search.shopping.naver.com/search/all?query=쿠캣+밀키트"
+  },
+  {
+    name:"잇츠온 (hy·한국야쿠르트)",
+    desc:"프레시매니저가 문 앞까지 배송하는 밀키트. 순두부찌개·밀푀유나베 등 깔끔한 한식 위주.",
+    price:3.4, taste:4.2, reviewScore:4.0, reviewCount:"한식 밀키트 후기 다수",
+    repMenu:"차돌 순두부찌개", repPrice:"약 16,900원", won:8450,
+    cats:["국물/탕","전골/나베"],
+    menus:["순두부찌개","밀푀유나베","부대찌개","찌개","나베","한식"],
+    img:"https://shopping-phinf.pstatic.net/main_5956439/59564393932.jpg",
+    official:"https://www.hyfresh.co.kr",
+    quote:"방문 배송이라 받기 편하고 국물 간이 깔끔. 가격은 조금 있지만 무난하게 맛있어요.",
+    src:"네이버쇼핑 잇츠온 밀키트",
+    url:"https://search.shopping.naver.com/search/all?query=잇츠온+밀키트"
+  },
+  {
+    name:"한끼통살",
+    desc:"닭가슴살·저당 도시락 전문. 다이어트·고단백 식단을 간편하게 챙기고 싶을 때 좋은 선택.",
+    price:4.0, taste:3.8, reviewScore:4.1, reviewCount:"저당도시락·닭가슴살 후기 다수",
+    repMenu:"저당 도시락 10개입", repPrice:"약 42,900원 (10개)", won:4290,
+    cats:["고기","대용량"],
+    menus:["닭가슴살","저당도시락","다이어트","도시락","고단백","런치백"],
+    img:"https://shopping-phinf.pstatic.net/main_5413348/54133487954.2.jpg",
+    quote:"잡내 적고 촉촉한 편. 한 끼 단백질·식단 관리용으로 냉동 쟁여두기 좋아요.",
+    src:"네이버쇼핑 한끼통살 저당도시락",
+    url:"https://search.shopping.naver.com/search/all?query=한끼통살+도시락"
   }
 ];
 
