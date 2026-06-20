@@ -476,6 +476,7 @@
       <div class="chip" data-sort="price">💰 저렴한순</div>
       <div class="chip" data-sort="taste">😋 맛있는순</div>
       <div class="chip" data-sort="review">📝 후기많은순</div>
+      <div class="chip" data-sort="rebuy">🔁 재구매순</div>
       <div class="chip" data-sort="myrating">⭐ 내 별점순</div>
     </div>
     <div class="spacer"></div>
@@ -964,6 +965,7 @@ function render(){
       if(key==="price") return a.won-b.won;
       if(key==="taste") return b.taste-a.taste;
       if(key==="review") return b.reviewScore-a.reviewScore;
+      if(key==="rebuy") return (b.rebuy!=null?b.rebuy:-1)-(a.rebuy!=null?a.rebuy:-1);
       if(key==="myrating") return (RATE[b.name]||0)-(RATE[a.name]||0);
       return b.value-a.value;
     });
