@@ -245,6 +245,11 @@
   .quote{background:#12151b;border-left:3px solid var(--accent);padding:10px 14px;
     border-radius:0 10px 10px 0;font-size:13px;color:#c7cedb;font-style:italic}
   .quote .src{display:block;font-style:normal;color:var(--sub);font-size:11px;margin-top:6px}
+  .note{display:flex;gap:6px;align-items:flex-start;background:#16140e;
+    border-left:3px solid var(--accent2);border-radius:0 10px 10px 0;
+    padding:8px 12px;font-size:12px;color:var(--sub);line-height:1.5}
+  .note b{color:var(--accent2);font-weight:700;white-space:nowrap}
+  .cmp-note{margin-top:10px;font-size:12px;color:var(--sub);line-height:1.5}
   .links{display:flex;gap:8px;flex-wrap:wrap}
   .btn{font-size:13px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);
     background:var(--card2);cursor:pointer;font-weight:600;transition:.15s;display:inline-block}
@@ -469,6 +474,7 @@ const SITES = [
     menus:["곱창","막창","대창","염통","소곱창","순두부","돈가스","대용량 식자재","펜네"],
     img:"https://shopping-phinf.pstatic.net/main_8887530/88875309156.2.jpg",
     quote:"건더기가 700~800g 정도로 넉넉해서 둘이 먹기에도 충분. 대용량 식자재를 합리적으로 공급.",
+    note:"자영업용 대용량 구성이 많아 1~2인은 양·보관 공간 확인이 필요해요.",
     src:"네이버 블로그 2주 시식 정리 후기",
     url:"https://search.shopping.naver.com/search/all?query=장사의신+밀키트"
   },
@@ -545,6 +551,7 @@ const SITES = [
     img:null,
     official:"https://emart.ssg.com",
     quote:"역대급 가성비 할인. 매달 식단 골라담으면 식비 절약에 캠핑 밀키트로도 좋음.",
+    note:"표시가는 월별 할인 행사가 기준이라 시기·점포에 따라 실제 가격이 달라요.",
     src:"네이버 블로그 고래잇 월식단 정리",
     url:"https://search.shopping.naver.com/search/all?query=이마트+고래잇+밀키트"
   },
@@ -597,6 +604,7 @@ const SITES = [
     img:"https://shopping-phinf.pstatic.net/main_5485289/54852890572.1.jpg",
     official:"https://emart.ssg.com",
     quote:"맛은 무난·평범하지만 이 가격이면 충분. 자취·비상식량으로 쟁여두기 좋음.",
+    note:"대표 구성이 2개입 묶음이라 1인분 환산가는 묶음 기준으로 계산했어요.",
     src:"네이버 쇼핑 노브랜드 부대찌개",
     url:"https://search.shopping.naver.com/search/all?query=노브랜드+밀키트"
   },
@@ -647,6 +655,7 @@ const SITES = [
     menus:["감자탕","통닭","마라탕","떡볶이","곱창","원팩"],
     img:null,
     quote:"고기도 부드러워 맛과 가성비 둘 다 잡은 감자탕 밀키트. 핏물 빼는 번거로움 없이 간편.",
+    note:"냉동 제품이라 보관에 냉동실 공간이 필요해요.",
     src:"네이버 블로그 쿠캣 점보감자탕 내돈내산 후기",
     url:"https://search.shopping.naver.com/search/all?query=쿠캣+밀키트"
   },
@@ -672,6 +681,7 @@ const SITES = [
     menus:["닭가슴살","저당도시락","다이어트","도시락","고단백","런치백"],
     img:"https://shopping-phinf.pstatic.net/main_5413348/54133487954.2.jpg",
     quote:"잡내 적고 촉촉한 편. 한 끼 단백질·식단 관리용으로 냉동 쟁여두기 좋아요.",
+    note:"대표 구성이 10개입 냉동 묶음이라 1인분가는 묶음 기준, 냉동 보관이 필요해요.",
     src:"네이버쇼핑 한끼통살 저당도시락",
     url:"https://search.shopping.naver.com/search/all?query=한끼통살+도시락"
   },
@@ -685,6 +695,7 @@ const SITES = [
     img:"https://shopping-phinf.pstatic.net/main_5824357/58243578144.20251223143510.jpg",
     official:"https://www.dolfarmer.com",
     quote:"박스 열자마자 신선함이 느껴져요. 리뷰 수가 워낙 많아 믿고 샀는데 꽃게 알도 꽉 차 대성공.",
+    note:"표시가는 1인분이 아니라 대표상품가 기준이에요.",
     src:"네이버 블로그 돌쇠네농산물 내돈내산 후기",
     url:"https://search.shopping.naver.com/search/all?query=돌쇠네농산물"
   },
@@ -698,6 +709,7 @@ const SITES = [
     img:null,
     official:"https://www.oasis.co.kr",
     quote:"유기농업계 관계자도 인정한 품질과 가성비. 두부·콩나물이 특히 신선하다는 평.",
+    note:"표시가는 1인분이 아니라 대표상품가 기준이에요.",
     src:"네이버 블로그 오아시스마켓 상품추천 후기",
     url:"https://search.shopping.naver.com/search/all?query=오아시스마켓"
   },
@@ -711,6 +723,7 @@ const SITES = [
     img:null,
     official:"https://www.jeongyukgak.com",
     quote:"도축 후 빠른 배송이라 확실히 신선. 한우 선물세트도 만족, 구울 때 잡내가 없어요.",
+    note:"표시가는 1인분이 아니라 대표상품가 기준이에요.",
     src:"네이버 블로그 정육각 내돈내산 후기",
     url:"https://search.shopping.naver.com/search/all?query=정육각"
   },
@@ -723,6 +736,7 @@ const SITES = [
     menus:["제철농산물","사과","감자","채소","로컬푸드","직거래","산지직송"],
     img:null,
     quote:"농가에서 바로 보내줘 중간 유통이 줄어 신선한데 가격도 착해요. 퀄리티 좋아 재구매.",
+    note:"표시가는 1인분이 아니라 대표상품가 기준이에요.",
     src:"네이버 블로그 충남 농사랑 직거래 후기",
     url:"https://search.shopping.naver.com/search/all?query=충남+농사랑+농산물"
   }
@@ -778,7 +792,11 @@ function renderCompare(list, q){
       cell("💰 1인분 최저가", cheapest, won(cheapest.won)+"원")+
       cell("😋 맛 1위", tasty, fmt(tasty.taste)+"점")+
       cell("⚖️ 가성비 1위", best, fmt(valueScore(best))+"점")+
-    `</div>`;
+    `</div>`+
+    (()=>{ const noted = list.filter(s=>s.note).map(s=>s.name.split(" (")[0]);
+      return noted.length
+        ? `<div class="cmp-note">💡 ${noted.slice(0,3).join(", ")}${noted.length>3?" 등":""}은(는) 구매 전 체크포인트가 있어요. 카드에서 확인하세요.</div>`
+        : ""; })();
   box.classList.add("show");
 }
 
@@ -913,6 +931,8 @@ function render(){
       </div>
 
       <div class="quote">“${hl(s.quote,q)}”<span class="src">— ${s.src}</span></div>
+
+      ${s.note?`<div class="note"><b>💡 구매 전 체크</b><span>${hl(s.note,q)}</span></div>`:""}
 
       <div class="meta">
         <span>🍽️ 메뉴: <b>${s.cats.join(", ")}</b></span>
