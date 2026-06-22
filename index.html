@@ -1568,10 +1568,11 @@ document.getElementById("updateBadge").textContent = `🔄 매주 자동 갱신 
 
 /* 신고/추가요청 토스트 */
 (function(){
-  const toast = document.getElementById("toast");
   let _timer = null;
 
   function showToast(msg){
+    const toast = document.getElementById("toast");
+    if(!toast) return;
     if(_timer){ clearTimeout(_timer); }
     toast.textContent = msg;
     toast.classList.add("show");
