@@ -86,6 +86,8 @@
   ]
 }
 </script>
+<!-- 구글 애드센스 소유권 확인·광고 로더 (원본 HTML에 정적으로 배치) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5010590441004037" crossorigin="anonymous"></script>
 <style>
   :root{
     --bg:#0f1115; --card:#181b22; --card2:#1f232c; --line:#2a2f3a;
@@ -1559,11 +1561,16 @@ document.getElementById("updateBadge").textContent = `🔄 매주 자동 갱신 
   const adTopEl = document.getElementById("adTop");
   if(!adsReady()){ adTopEl.innerHTML = ""; return; }
   adTopEl.innerHTML = adHTML(ADSENSE.slotTop, "auto");
-  const sc = document.createElement("script");
-  sc.async = true; sc.crossOrigin = "anonymous";
-  sc.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADSENSE.client;
-  sc.onload = function(){ pushAds(); };
-  document.head.appendChild(sc);
+  /* 로더 중복 방지: head에 정적 스니펫이 이미 있으면 appendChild 생략 */
+  if(document.querySelector('script[src*="adsbygoogle.js"]')){
+    pushAds();
+  } else {
+    const sc = document.createElement("script");
+    sc.async = true; sc.crossOrigin = "anonymous";
+    sc.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + ADSENSE.client;
+    sc.onload = function(){ pushAds(); };
+    document.head.appendChild(sc);
+  }
 })();
 
 /* 신고/추가요청 토스트 */
